@@ -1,0 +1,51 @@
+# DOVE - Configuration file
+
+#
+# Define the disk to use. Each instance has one disk it is responsible
+# for. Multiple disks will come later. Possible.
+#
+# a default disk allows this config file to be used on a cluster of
+# similar machines, eg a cluster of PI's or ODROIDS.
+#
+# Nodes can override this by setting a disk name for this node.
+
+disk_bastet = "/dev/mapper/osirisvg-dove0"
+disk_default = "/dev/mmcblk1p1"
+
+#
+# Discovery is about how we find node on the network. The mode can be
+# NAMES or SCAN
+#
+# NAMES means we will log the named nodes and attempt to connect to them
+# at every heartbeat interval.
+#
+# SCAN means we scan each IP address on the local network to see who
+# is running.
+#
+# The PORT is the TCP port we use for internode communication.
+#
+discovery_mode = "NAMES"
+discovery_names = [ "bastet", "odroid0", "odroid1" ]
+discovery_port = 7000
+
+#
+# The intervals are specified in milliseconds. They state how often we
+# send out a heartbeat message to nodes to say we are alive. And how often we
+# coalesce the free space list. Coalescing the free space does not change anything
+# on disk, it simply merges adjacent free space blocks in to single larger blocks.
+#
+# (A future option to compress and defragment the disk is planned)
+#
+interval_coalesce = 60000
+interval_heartbeat = 5000
+
+#
+# These are sizes for basic allocations
+HEADER_SPACE = 4194304     # Only used on disk init, its the max size reserved for the header
+GOB_SIZE = 10000           # Initial size of the graphic object list in items
+FREE_SIZE = 1000           # Initial size of the free list in slots
+VERTEX_SIZE = 1000         # Initial size of the vertex list in a graph
+EDGE_SIZE = 4              # Initial number of edges in a vertex
+PROPERTY_SIZE = 10         # Initial number of properties on a vertex or edge
+
+
